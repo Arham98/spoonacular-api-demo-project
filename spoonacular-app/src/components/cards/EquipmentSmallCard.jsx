@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Col from 'react-bootstrap/Col';
@@ -11,14 +12,17 @@ export default function EquipmentSmallCard({ equipmentStr }) {
 
   return (
     <Col className="col-auto">
-      <Card style={{width: '100px', height: 'auto'}}>
-        <Card.Img variant="top" src={equipmentImg} alt="Image Not Found"
+      <Card style={{ width: '100px', height: 'auto' }}>
+        <Card.Img
+          variant="top"
+          src={equipmentImg}
+          alt="Image Not Found"
           onError={({ currentTarget }) => {
             currentTarget.onerror = null;
-            currentTarget.src=imgPlaceholder;
+            currentTarget.src = imgPlaceholder;
           }}
         />
-        <Card.Header style={{borderRadius: '0em 0em 0.5em 0.5em'}}>{`${titleCaseConverter(equipmentData.name)}`}</Card.Header>
+        <Card.Header style={{ borderRadius: '0em 0em 0.5em 0.5em' }}>{`${titleCaseConverter(equipmentData.name)}`}</Card.Header>
       </Card>
     </Col>
   );

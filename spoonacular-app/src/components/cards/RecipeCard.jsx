@@ -1,9 +1,10 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import imgPlaceholder from '../../images/imgPlaceholder.png';
 import ListGroup from 'react-bootstrap/ListGroup';
+import imgPlaceholder from '../../images/imgPlaceholder.png';
 
 export default function RecipeCard({ recipeStr }) {
   const recipeData = JSON.parse(recipeStr);
@@ -12,10 +13,13 @@ export default function RecipeCard({ recipeStr }) {
   return (
     <Col className="col-3" style={{ paddingBottom: '24px' }}>
       <Card>
-        <Card.Img variant="top" src={recipeImg} alt="Image Not Found"
+        <Card.Img
+          variant="top"
+          src={recipeImg}
+          alt="Image Not Found"
           onError={({ currentTarget }) => {
             currentTarget.onerror = null;
-            currentTarget.src=imgPlaceholder;
+            currentTarget.src = imgPlaceholder;
           }}
         />
         <Card.Header className="header">{recipeData.title}</Card.Header>

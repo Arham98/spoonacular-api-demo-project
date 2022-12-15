@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import EventCard from '../cards/EventCard';
-import PerformerCard from '../cards/PerformerCard';
 
 function CardList({ data, type }) {
   let listCards = <div />;
@@ -13,9 +11,9 @@ function CardList({ data, type }) {
       return (
         <React.Fragment key={object.id}>
           {
-            type === 'Events'
-              ? <EventCard eventStr={dataObjStr} />
-              : <PerformerCard performerStr={dataObjStr} />
+            // type === 'Events'
+            //   ? <EventCard eventStr={dataObjStr} />
+            //   : <PerformerCard performerStr={dataObjStr} />
           }
         </React.Fragment>
       );

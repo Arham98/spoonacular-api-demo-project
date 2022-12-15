@@ -1,7 +1,6 @@
-*/package-lock*
-
+*package-lock*
+*node_modules*
 *DS_Store*
-
-DockerFile
-
-dockerJob.txt
+*DockerFile*
+*dockerJob*
+*eslint*

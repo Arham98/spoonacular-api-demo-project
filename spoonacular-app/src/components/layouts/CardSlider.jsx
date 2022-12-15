@@ -10,26 +10,27 @@ function CardSlider({ data, type, emptyMessage }) {
   let listCards = <div />;
   if (data) {
     listCards = data.map((object) => {
-      const dataObjStr = JSON.stringify(object);    
+      const dataObjStr = JSON.stringify(object);
       if (type === 'recipe') {
-          return (
+        return (
           <React.Fragment key={object.id}>
             <RecipeCard recipeStr={dataObjStr} />
           </React.Fragment>
         );
-      } else if (type === 'ingredient-small') {
+      } if (type === 'ingredient-small') {
         return (
           <React.Fragment key={`${object.id}-${object.name}`}>
             <IngredientSmallCard ingredientStr={dataObjStr} />
           </React.Fragment>
         );
-      } else if (type === 'equipment-small') {
+      } if (type === 'equipment-small') {
         return (
           <React.Fragment key={`${object.id}-${object.name}`}>
             <EquipmentSmallCard equipmentStr={dataObjStr} />
           </React.Fragment>
         );
       }
+      return (<div />);
     });
   } else {
     return (

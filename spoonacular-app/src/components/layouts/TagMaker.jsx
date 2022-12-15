@@ -6,27 +6,25 @@ import Badge from 'react-bootstrap/Badge';
 import titleCaseConverter from '../../utils/titleCaseConverter';
 
 export default function RecipeCard({ data }) {
-  let listTags = <div/>
+  let listTags = <div />;
   if (data) {
-    listTags = data.map((tagName) => {
-      return (
-        <React.Fragment key={tagName}>
-          <Col className="col-auto">
+    listTags = data.map((tagName) => (
+      <React.Fragment key={tagName}>
+        <Col className="col-auto">
           <Badge className="tag-color badge-design-main">
             {titleCaseConverter(tagName)}
           </Badge>
-          </Col>
-        </React.Fragment>
-      );
-    });
+        </Col>
+      </React.Fragment>
+    ));
   } else {
     return (
-      <div/>
+      <div />
     );
   }
 
   return (
-    <Row className="d-flex flex-row flex-nowrap overflow-auto">
+    <Row className="d-flex flex-row">
       { listTags }
     </Row>
   );
