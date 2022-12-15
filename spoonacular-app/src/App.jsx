@@ -12,10 +12,10 @@ import NotFound from './components/pages/NotFound';
 import CustomFooter from './components/utilities/CustomFooter';
 import RecipePage from './components/pages/RecipePage';
 import ProductPage from './components/pages/ProductPage';
+import keys from './keys.json';
 
 function App() {
-  const apiKey = '092e01dfab4e42f08059e2c461a43657';
-
+  const { apiKey } = keys;
   return (
     <>
       <NavBar />
