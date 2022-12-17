@@ -7,24 +7,27 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { BsSearch } from 'react-icons/bs';
 import Loading from '../utilities/Loading';
 import CustomPagination from '../utilities/CustomPagination';
 import PageError from './PageError';
 import CardList from '../layouts/CardList';
+import NutrientForm from '../layouts/NutrientForm';
 import DropdownMenuMaker from '../layouts/DropdownMenuMaker';
 import useFetch from '../../hooks/useFetch';
 
-export default function Ingredients({ apiKey }) {
-  const intolerances = ['Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood', 'Sesame', 'Shellfish', 'Soy', 'Sulfite', 'Tree Nut', 'Wheat'];
-  const sortingOptions = ['default', 'meta-score', 'popularity', 'healthiness', 'price', 'time', 'random', 'max-used-ingredients', 'min-missing-ingredients', 'alcohol', 'caffeine', 'copper', 'energy', 'calories', 'calcium', 'carbohydrates', 'carbs', 'choline', 'cholesterol', 'total-fat', 'fluoride', 'trans-fat', 'saturated-fat', 'mono-unsaturated-fat', 'poly-unsaturated-fat', 'fiber', 'folate', 'folic-acid', 'iodine', 'iron', 'magnesium', 'manganese', 'vitamin-b3', 'niacin', 'vitamin-b5', 'pantothenic-acid', 'phosphorus', 'potassium', 'protein', 'vitamin-b2', 'riboflavin', 'selenium', 'sodium', 'vitamin-b1', 'thiamin', 'vitamin-a', 'vitamin-b6', 'vitamin-b12', 'vitamin-c', 'vitamin-d', 'vitamin-e', 'vitamin-k', 'sugar', 'zinc'];
-  const sortingDirections = ['asc', 'desc'];
-
+export default function Products({ apiKey }) {
   // Initializing initial states of all search parameters
   const [query, setQuery] = useState('Eggs');
-  const [intolerance, setIntolerance] = useState('');
-  const [sort, setSortingOption] = useState('');
-  const [sortDirection, setSortDirection] = useState('asc');
+  const [minCalories, setMinCalories] = useState('');
+  const [maxCalories, setMaxCalories] = useState('');
+  const [minCarbs, setMinCarbs] = useState('');
+  const [maxCarbs, setMaxCarbs] = useState('');
+  const [minProtein, setMinProtein] = useState('');
+  const [maxProtein, setMaxProtein] = useState('');
+  const [minFat, setMinFat] = useState('');
+  const [maxFat, setMaxFat] = useState('');
   const [number, setNumber] = useState(10);
   const [offset, setOffset] = useState(0);
 
@@ -39,22 +42,19 @@ export default function Ingredients({ apiKey }) {
   };
   const optionsStrJSON = JSON.stringify(optionsJSON);
 
-  // API Call to search for Ingredients
-  const queryParametersSearchIngredients = new URLSearchParams({
+  // API Call to search for Products
+  const queryParametersSearchProducts = new URLSearchParams({
     query,
-    intolerance,
-    sort,
-    sortDirection,
     number,
     offset,
   });
-  const urlSearchIngredients = `https://api.spoonacular.com/food/ingredients/search?${queryParametersSearchIngredients}`;
+  const urlSearchProducts = `https://api.spoonacular.com/food/products/search?${queryParametersSearchProducts}${minCalories}${maxCalories}${minCarbs}${maxCarbs}${minProtein}${maxProtein}${minFat}${maxFat}`;
   const {
-    data: dataSearchIngredients,
-    success: successSearchIngredients,
-    loading: loadingSearchIngredients,
+    data: dataSearchProducts,
+    success: successSearchProducts,
+    loading: loadingSearchProducts,
   } = useFetch(
-    urlSearchIngredients,
+    urlSearchProducts,
     optionsStrJSON,
   );
 
@@ -62,21 +62,30 @@ export default function Ingredients({ apiKey }) {
   const updateSearchQuery = (event) => {
     event.preventDefault();
     setQuery(event.target[0].value);
-  };
-
-  // Dropdown function to update the intolerance filter
-  const updateIntolerance = (intoleranceName) => {
-    setIntolerance(intoleranceName);
-  };
-
-  // Dropdown function to update the sorting option filter
-  const updateSortingOption = (sortName) => {
-    setSortingOption(sortName);
-  };
-
-  // Dropdown function to update the sorting option filter
-  const updateSortDirection = (sortDir) => {
-    setSortDirection(sortDir);
+    if (event.target[2].value) {
+      setMinCalories(`&minCalories=${event.target[2].value}`);
+    }
+    if (event.target[3].value) {
+      setMaxCalories(`&maxCalories=${event.target[3].value}`);
+    }
+    if (event.target[4].value) {
+      setMinCarbs(`&minCarbs=${event.target[4].value}`);
+    }
+    if (event.target[5].value) {
+      setMaxCarbs(`&maxCarbs=${event.target[5].value}`);
+    }
+    if (event.target[6].value) {
+      setMinProtein(`&minProtein=${event.target[6].value}`);
+    }
+    if (event.target[7].value) {
+      setMaxProtein(`&maxProtein=${event.target[7].value}`);
+    }
+    if (event.target[8].value) {
+      setMinFat(`&minFat=${event.target[8].value}`);
+    }
+    if (event.target[9].value) {
+      setMaxFat(`&maxFat=${event.target[9].value}`);
+    }
   };
 
   // Dropdown function to update the filter the number of search
@@ -90,77 +99,58 @@ export default function Ingredients({ apiKey }) {
     setOffset(newPageNumber);
   };
 
-  if (loadingSearchIngredients) {
+  if (loadingSearchProducts) {
     return (
       <Loading />
     );
-  } if (!(successSearchIngredients)) {
+  } if (!(successSearchProducts)) {
     console.log('The following errors were encountered:');
-    if (dataSearchIngredients.error) {
-      console.log(`URL -> ${urlSearchIngredients}`);
-      console.log(`Error -> ${dataSearchIngredients.error}\n`);
+    if (dataSearchProducts.error) {
+      console.log(`URL -> ${urlSearchProducts}`);
+      console.log(`Error -> ${dataSearchProducts.error}\n`);
     }
     return (
-      <PageError />
+      <PageError errorMessage={dataSearchProducts.error} />
     );
   }
   return (
     <Container>
       <Col className="align-items-center">
         <Row style={{ paddingTop: '10px' }}>
-          <h1 className="header1-design">Ingredient Search</h1>
+          <h1 className="header1-design">Product Search</h1>
         </Row>
         <Row style={{ paddingTop: '20px' }}>
-          <Form className="d-flex" onSubmit={updateSearchQuery}>
-            <Form.Control
-              type="search"
-              placeholder="Search Ingredients"
-              className="me-2"
-              aria-label="Search"
-              defaultValue={(query === '') ? null : query}
+          <Form onSubmit={updateSearchQuery}>
+            <Container className="flex">
+              <InputGroup className="mb-3">
+                <Form.Control
+                  type="search"
+                  placeholder="Search Products"
+                  aria-label="Search"
+                  defaultValue={(query === '') ? null : query}
+                />
+                <Button className="button" type="submit"><BsSearch /></Button>
+              </InputGroup>
+            </Container>
+            <NutrientForm
+              data={`${minCalories}${maxCalories}${minCarbs}${maxCarbs}${minProtein}${maxProtein}${minFat}${maxFat}`.slice(1)}
             />
-            <Button className="button" type="submit"><BsSearch /></Button>
           </Form>
-        </Row>
-        <Row>
-          <h3 className="header3-design">Filters</h3>
-        </Row>
-        <Row style={{ paddingTop: '20px' }}>
-          <Col className="col-auto">
-            <Dropdown onSelect={updateIntolerance}>
-              <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                {(intolerance !== '') ? intolerance : 'Select Intolerance to Avoid'}
-              </Dropdown.Toggle>
-              <DropdownMenuMaker data={intolerances} val={intolerance} />
-            </Dropdown>
-          </Col>
-          <Col className="col-auto">
-            <Dropdown onSelect={updateSortingOption}>
-              <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                {(sort !== '') ? sort : 'Select Sorting Option'}
-              </Dropdown.Toggle>
-              <DropdownMenuMaker data={sortingOptions} val={sort} />
-            </Dropdown>
-          </Col>
-          <Col className="col-auto">
-            <Dropdown onSelect={updateSortDirection}>
-              <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                {sortDirection}
-              </Dropdown.Toggle>
-              <DropdownMenuMaker data={sortingDirections} val={sortDirection} />
-            </Dropdown>
-          </Col>
         </Row>
         <Row style={{ paddingTop: '10px' }}>
           <h3 className="header3-design">Search Results</h3>
         </Row>
         <Row style={{ paddingTop: '20px', paddingBottom: '20px' }}>
-          <CardList data={dataSearchIngredients.results} type="ingredient" />
+          <CardList data={dataSearchProducts.products} type="product" />
         </Row>
         <Row className="d-flex flex-row-reverse">
           <Col>
             <CustomPagination
-              data={JSON.stringify(dataSearchIngredients)}
+              data={JSON.stringify({
+                number: dataSearchProducts.number,
+                offset: dataSearchProducts.offset,
+                totalResults: dataSearchProducts.totalProducts,
+              })}
               updatePageNumber={updatePageNumber}
             />
           </Col>
@@ -185,6 +175,6 @@ export default function Ingredients({ apiKey }) {
   );
 }
 
-Ingredients.propTypes = {
+Products.propTypes = {
   apiKey: PropTypes.string.isRequired,
 };

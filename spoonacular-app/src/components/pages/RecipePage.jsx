@@ -15,8 +15,8 @@ import { useParams } from 'react-router-dom';
 import { BsFillCheckCircleFill, BsFillXCircleFill } from 'react-icons/bs';
 import Loading from '../utilities/Loading';
 import PageError from './PageError';
-import CardSlider from '../layouts/CardSlider';
 import TagMaker from '../layouts/TagMaker';
+import CardSlider from '../layouts/CardSlider';
 import RecipeInstructionCard from '../cards/RecipeInstructionCard';
 import useFetch from '../../hooks/useFetch';
 import imgPlaceholder from '../../images/imgPlaceholder.png';
@@ -159,7 +159,7 @@ export default function RecipePage({ apiKey }) {
       console.log(`Error -> ${dataRecipeWidget.error}\n`);
     }
     return (
-      <PageError />
+      <PageError errorMessage="Oops! Something went wrong" />
     );
   }
   return (
@@ -198,7 +198,7 @@ export default function RecipePage({ apiKey }) {
         </Row>
         <Collapse in={open} style={{ padding: '30px' }}>
           <Row id="collapse-instructions">
-            <RecipeInstructionCard data={dataRecipeInfo.analyzedInstructions} />
+            <RecipeInstructionCard data={dataRecipeInfo.analyzedInstructions} apiKey={apiKey} />
           </Row>
         </Collapse>
         <div className="text-center">
@@ -312,7 +312,7 @@ export default function RecipePage({ apiKey }) {
         <Row>
           <h3 className="header3-design">Similar Recipes</h3>
         </Row>
-        <CardSlider data={dataSimilarRecipes} type="recipe" emptyMessage="Data Not Available" />
+        <CardSlider data={dataSimilarRecipes} type="recipe" emptyMessage="Data Not Available" apiKey={apiKey} />
       </Col>
     </Container>
   );

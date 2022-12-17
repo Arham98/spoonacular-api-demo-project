@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import RecipeSmallCard from '../cards/RecipeSmallCard';
 import IngredientCard from '../cards/IngredientCard';
+import ProductCard from '../cards/ProductCard';
 import titleCaseConverter from '../../utils/titleCaseConverter';
 
 function CardList({ data, type }) {
@@ -26,7 +27,7 @@ function CardList({ data, type }) {
       } if (type === 'product') {
         return (
           <React.Fragment key={`${object.id}-${object.name}`}>
-            <RecipeSmallCard objectStr={dataObjStr} />
+            <ProductCard objectStr={dataObjStr} />
           </React.Fragment>
         );
       }

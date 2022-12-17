@@ -4,16 +4,17 @@ import PropTypes from 'prop-types';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import imgPlaceholder from '../../images/imgPlaceholder.png';
+import titleCaseConverter from '../../utils/titleCaseConverter';
 
-export default function RecipeSmallCard({ objectStr }) {
-  const recipeData = JSON.parse(objectStr);
-  const recipeImg = recipeData.image;
-
+export default function ProductCard({ objectStr }) {
+  const productData = JSON.parse(objectStr);
+  const imageType = (productData.imageType) ? productData.imageType : 'jpeg';
+  const productImg = `https://spoonacular.com/productImages/${productData.id}-636x393.${imageType}`;
   return (
-    <Col className="col-auto" style={{ paddingBottom: '20px' }}>
+    <Col className="col-auto" style={{ paddingBottom: '24px' }}>
       <Card style={{ width: '300px', height: 'auto' }}>
         <a
-          href={`/recipes/${recipeData.id}`}
+          href={`/products/${productData.id}`}
           className="stretched-link"
           style={{
             color: 'white', fontSize: 14, textDecoration: 'none',
@@ -21,20 +22,21 @@ export default function RecipeSmallCard({ objectStr }) {
         >
           <Card.Img
             variant="top"
-            src={recipeImg}
+            src={productImg}
             alt="Image Not Found"
+            style={{ maxHeight: '300px' }}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null;
               currentTarget.src = imgPlaceholder;
             }}
           />
-          <Card.Header style={{ borderRadius: '0em 0em 0.5em 0.5em' }}>{`${recipeData.title}`}</Card.Header>
         </a>
+        <Card.Header style={{ borderRadius: '0em 0em 0.5em 0.5em' }}>{`${titleCaseConverter(productData.title)}`}</Card.Header>
       </Card>
     </Col>
   );
 }
 
-RecipeSmallCard.propTypes = {
+ProductCard.propTypes = {
   objectStr: PropTypes.string.isRequired,
 };

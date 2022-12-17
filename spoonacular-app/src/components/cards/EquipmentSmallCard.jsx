@@ -9,7 +9,6 @@ import titleCaseConverter from '../../utils/titleCaseConverter';
 export default function EquipmentSmallCard({ equipmentStr }) {
   const equipmentData = JSON.parse(equipmentStr);
   const equipmentImg = `https://spoonacular.com/cdn/equipment_500x500/${equipmentData.image}`;
-
   return (
     <Col className="col-auto">
       <Card style={{ width: '100px', height: 'auto' }}>

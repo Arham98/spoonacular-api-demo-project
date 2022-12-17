@@ -31,10 +31,10 @@ export default function useFetch(url, optionsStr) {
         setSuccess(response.ok);
         if (!response.ok) {
           if (!response.body) {
-            throw new Error(`Status Code: ${response.status}\n         Error Message: ${response.statusText}`);
+            throw new Error(`Status Code: ${response.status}\nError Message: ${response.statusText}`);
           } else {
             const errorResponse = await response.json();
-            throw new Error(`Status Code: ${response.status}\n         API Error Message: ${errorResponse.message}`);
+            throw new Error(`Status Code: ${response.status}\nAPI Error Message: ${errorResponse.message}`);
           }
         }
 

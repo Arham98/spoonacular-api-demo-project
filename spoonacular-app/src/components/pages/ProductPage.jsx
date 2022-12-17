@@ -110,7 +110,7 @@ export default function ProductPage({ apiKey }) {
       console.log(`Error -> ${dataProductWidget.error}\n`);
     }
     return (
-      <PageError />
+      <PageError errorMessage="Oops! Something went wrong" />
     );
   }
 

@@ -11,6 +11,7 @@ import Image from 'react-bootstrap/Image';
 import { useParams } from 'react-router-dom';
 import Loading from '../utilities/Loading';
 import PageError from './PageError';
+import ProductSuggestions from './ProductSuggestions';
 import TagMaker from '../layouts/TagMaker';
 import OptionsMaker from '../layouts/OptionsMaker';
 import useFetch from '../../hooks/useFetch';
@@ -72,7 +73,6 @@ export default function IngredientPage({ apiKey }) {
     }
   };
 
-  console.log(dataIngredientSubstitute);
   if (loadingIngredientInfo || loadingIngredientSubstitute) {
     return (
       <Loading />
@@ -88,10 +88,10 @@ export default function IngredientPage({ apiKey }) {
       console.log(`Error -> ${dataIngredientSubstitute.error}\n`);
     }
     return (
-      <PageError />
+      <PageError errorMessage="Oops! Something went wrong" />
     );
   }
-  console.log(apiKey);
+
   return (
     <Container>
       <Col className="align-items-center">
@@ -205,6 +205,10 @@ export default function IngredientPage({ apiKey }) {
             </Row>
           </Col>
         </Row>
+        <Row>
+          <h3 className="header3-design">{`Grocery Products with ${titleCaseConverter(dataIngredientInfo.name)}`}</h3>
+        </Row>
+        <ProductSuggestions apiKey={apiKey} ingredientName={dataIngredientInfo.name} />
       </Col>
     </Container>
   );

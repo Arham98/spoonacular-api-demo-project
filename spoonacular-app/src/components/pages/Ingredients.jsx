@@ -7,11 +7,13 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { BsSearch } from 'react-icons/bs';
 import Loading from '../utilities/Loading';
 import CustomPagination from '../utilities/CustomPagination';
 import PageError from './PageError';
 import CardList from '../layouts/CardList';
+import NutrientForm from '../layouts/NutrientForm';
 import DropdownMenuMaker from '../layouts/DropdownMenuMaker';
 import useFetch from '../../hooks/useFetch';
 
@@ -22,6 +24,14 @@ export default function Ingredients({ apiKey }) {
 
   // Initializing initial states of all search parameters
   const [query, setQuery] = useState('Oil');
+  const [minCalories, setMinCalories] = useState('');
+  const [maxCalories, setMaxCalories] = useState('');
+  const [minCarbs, setMinCarbs] = useState('');
+  const [maxCarbs, setMaxCarbs] = useState('');
+  const [minProtein, setMinProtein] = useState('');
+  const [maxProtein, setMaxProtein] = useState('');
+  const [minFat, setMinFat] = useState('');
+  const [maxFat, setMaxFat] = useState('');
   const [intolerance, setIntolerance] = useState('');
   const [sort, setSortingOption] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
@@ -48,7 +58,7 @@ export default function Ingredients({ apiKey }) {
     number,
     offset,
   });
-  const urlSearchIngredients = `https://api.spoonacular.com/food/ingredients/search?${queryParametersSearchIngredients}`;
+  const urlSearchIngredients = `https://api.spoonacular.com/food/ingredients/search?${queryParametersSearchIngredients}${minCalories}${maxCalories}${minCarbs}${maxCarbs}${minProtein}${maxProtein}${minFat}${maxFat}`;
   const {
     data: dataSearchIngredients,
     success: successSearchIngredients,
@@ -62,6 +72,30 @@ export default function Ingredients({ apiKey }) {
   const updateSearchQuery = (event) => {
     event.preventDefault();
     setQuery(event.target[0].value);
+    if (event.target[2].value) {
+      setMinCalories(`&minCalories=${event.target[2].value}`);
+    }
+    if (event.target[3].value) {
+      setMaxCalories(`&maxCalories=${event.target[3].value}`);
+    }
+    if (event.target[4].value) {
+      setMinCarbs(`&minCarbs=${event.target[4].value}`);
+    }
+    if (event.target[5].value) {
+      setMaxCarbs(`&maxCarbs=${event.target[5].value}`);
+    }
+    if (event.target[6].value) {
+      setMinProtein(`&minProtein=${event.target[6].value}`);
+    }
+    if (event.target[7].value) {
+      setMaxProtein(`&maxProtein=${event.target[7].value}`);
+    }
+    if (event.target[8].value) {
+      setMinFat(`&minFat=${event.target[8].value}`);
+    }
+    if (event.target[9].value) {
+      setMaxFat(`&maxFat=${event.target[9].value}`);
+    }
   };
 
   // Dropdown function to update the intolerance filter
@@ -101,7 +135,7 @@ export default function Ingredients({ apiKey }) {
       console.log(`Error -> ${dataSearchIngredients.error}\n`);
     }
     return (
-      <PageError />
+      <PageError errorMessage="Oops! Something went wrong" />
     );
   }
   return (
@@ -111,46 +145,54 @@ export default function Ingredients({ apiKey }) {
           <h1 className="header1-design">Ingredient Search</h1>
         </Row>
         <Row style={{ paddingTop: '20px' }}>
-          <Form className="d-flex" onSubmit={updateSearchQuery}>
-            <Form.Control
-              type="search"
-              placeholder="Search Ingredients"
-              className="me-2"
-              aria-label="Search"
-              defaultValue={(query === '') ? null : query}
+          <Form onSubmit={updateSearchQuery}>
+            <Container className="flex">
+              <InputGroup className="mb-3">
+                <Form.Control
+                  type="search"
+                  placeholder="Search Ingredients"
+                  className="me-2"
+                  aria-label="Search"
+                  defaultValue={(query === '') ? null : query}
+                />
+                <Button className="button" type="submit"><BsSearch /></Button>
+              </InputGroup>
+            </Container>
+            <NutrientForm
+              data={`${minCalories}${maxCalories}${minCarbs}${maxCarbs}${minProtein}${maxProtein}${minFat}${maxFat}`.slice(1)}
             />
-            <Button className="button" type="submit"><BsSearch /></Button>
           </Form>
         </Row>
-        <Row>
-          <h3 className="header3-design">Filters</h3>
-        </Row>
-        <Row style={{ paddingTop: '20px' }}>
-          <Col className="col-auto">
-            <Dropdown onSelect={updateIntolerance}>
-              <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                {(intolerance !== '') ? intolerance : 'Select Intolerance to Avoid'}
-              </Dropdown.Toggle>
-              <DropdownMenuMaker data={intolerances} val={intolerance} />
-            </Dropdown>
-          </Col>
-          <Col className="col-auto">
-            <Dropdown onSelect={updateSortingOption}>
-              <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                {(sort !== '') ? sort : 'Default Sorting Option'}
-              </Dropdown.Toggle>
-              <DropdownMenuMaker data={sortingOptions} val={sort} />
-            </Dropdown>
-          </Col>
-          <Col className="col-auto">
-            <Dropdown onSelect={updateSortDirection}>
-              <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                {sortDirection}
-              </Dropdown.Toggle>
-              <DropdownMenuMaker data={sortingDirections} val={sortDirection} />
-            </Dropdown>
-          </Col>
-        </Row>
+        <Form>
+          <Container>
+            <Row style={{ paddingTop: '20px' }}>
+              <Col className="col-auto">
+                <Dropdown onSelect={updateIntolerance}>
+                  <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    {(intolerance !== '') ? intolerance : 'Select Intolerance to Avoid'}
+                  </Dropdown.Toggle>
+                  <DropdownMenuMaker data={intolerances} val={intolerance} />
+                </Dropdown>
+              </Col>
+              <Col className="col-auto">
+                <Dropdown onSelect={updateSortingOption}>
+                  <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    {(sort !== '') ? sort : 'Default Sorting Option'}
+                  </Dropdown.Toggle>
+                  <DropdownMenuMaker data={sortingOptions} val={sort} />
+                </Dropdown>
+              </Col>
+              <Col className="col-auto">
+                <Dropdown onSelect={updateSortDirection}>
+                  <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    {sortDirection}
+                  </Dropdown.Toggle>
+                  <DropdownMenuMaker data={sortingDirections} val={sortDirection} />
+                </Dropdown>
+              </Col>
+            </Row>
+          </Container>
+        </Form>
         <Row style={{ paddingTop: '10px' }}>
           <h3 className="header3-design">Search Results</h3>
         </Row>

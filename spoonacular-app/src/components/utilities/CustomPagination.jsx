@@ -16,6 +16,9 @@ function CustomPagination({ data, updatePageNumber }) {
   if (totalPages > maxPagesAPI) {
     totalPages = maxPagesAPI;
   }
+  if (totalPages === 0) {
+    totalPages = 1;
+  }
   const currentPage = Math.ceil(metaData.offset / metaData.number) + 1;
 
   // Calculating the first pagination page using the provided metadata
@@ -25,7 +28,6 @@ function CustomPagination({ data, updatePageNumber }) {
   const isLastPage = pageNumber === totalPages;
   const prevPage = isFirstPage ? 1 : pageNumber - 1;
   const nextPage = isLastPage ? 1 : pageNumber + 1;
-  // console.log(totalPages, currentPage, prevPage, nextPage, perPage);
 
   return (
     <Pagination className="justify-content-center pagination">

@@ -13,6 +13,7 @@ import CustomFooter from './components/utilities/CustomFooter';
 import RecipePage from './components/pages/RecipePage';
 import Recipes from './components/pages/Recipes';
 import Ingredients from './components/pages/Ingredients';
+import Products from './components/pages/Products';
 import ProductPage from './components/pages/ProductPage';
 import IngredientPage from './components/pages/IngredientPage';
 import keys from './keys.json';
@@ -31,7 +32,7 @@ function App() {
             <Route path="products/:productId" element={<ProductPage apiKey={apiKey} />} />
             <Route path="recipes" element={<Recipes apiKey={apiKey} />} />
             <Route path="ingredients" element={<Ingredients apiKey={apiKey} />} />
-            <Route path="products" element={<ProductPage apiKey={apiKey} />} />
+            <Route path="products" element={<Products apiKey={apiKey} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

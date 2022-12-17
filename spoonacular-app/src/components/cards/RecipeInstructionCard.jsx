@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Carousel from 'react-bootstrap/Carousel';
 import CardSlider from '../layouts/CardSlider';
 
-export default function RecipeInstructionCard({ data }) {
+export default function RecipeInstructionCard({ data, apiKey }) {
   let listCards = <div />;
   if (data && data.length !== 0) {
     listCards = data[0].steps.map((object) => (
@@ -19,11 +19,11 @@ export default function RecipeInstructionCard({ data }) {
                 <ListGroup.Item className="list-group-item-card">{`${object.step}`}</ListGroup.Item>
                 <ListGroup.Item className="list-group-item-card">
                   <b>Ingredeints involved:</b>
-                  <CardSlider data={object.ingredients} type="ingredient-small" emptyMessage="–" />
+                  <CardSlider data={object.ingredients} type="ingredient-small" emptyMessage="–" apiKey={apiKey} />
                 </ListGroup.Item>
                 <ListGroup.Item className="list-group-item-card">
                   <b>Equipment to use:</b>
-                  <CardSlider data={object.equipment} type="equipment-small" emptyMessage="–" />
+                  <CardSlider data={object.equipment} type="equipment-small" emptyMessage="–" apiKey={apiKey} />
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
@@ -53,5 +53,6 @@ export default function RecipeInstructionCard({ data }) {
 }
 
 RecipeInstructionCard.propTypes = {
+  apiKey: PropTypes.string.isRequired,
   data: PropTypes.instanceOf(Array).isRequired,
 };

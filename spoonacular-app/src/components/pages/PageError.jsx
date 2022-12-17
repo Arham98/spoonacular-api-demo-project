@@ -1,12 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 
-function PageError() {
+export default function PageError({ errorMessage }) {
   return (
     <Container className="center-container">
-      <h1 className="text-title-color">Oops! Something went wrong</h1>
+      <pre>
+        <h1 className="text-title-color">{errorMessage}</h1>
+      </pre>
     </Container>
   );
 }
 
-export default PageError;
+PageError.propTypes = {
+  errorMessage: PropTypes.string.isRequired,
+};
