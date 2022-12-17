@@ -9,13 +9,9 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Image from 'react-bootstrap/Image';
 import Dropdown from 'react-bootstrap/Dropdown';
-// import Button from 'react-bootstrap/Button';
-// import Collapse from 'react-bootstrap/Collapse';
 import { useParams } from 'react-router-dom';
-// import { BsFillCheckCircleFill, BsFillXCircleFill } from 'react-icons/bs';
 import Loading from '../utilities/Loading';
 import PageError from './PageError';
-// import CardSlider from '../layouts/CardSlider';
 import TagMaker from '../layouts/TagMaker';
 import useFetch from '../../hooks/useFetch';
 import imgPlaceholder from '../../images/imgPlaceholder.png';
@@ -23,8 +19,6 @@ import htmlParser from '../../utils/htmlParser';
 
 export default function ProductPage({ apiKey }) {
   const params = useParams();
-  // const trueIcon = (<BsFillCheckCircleFill style={{ color: 'green' }} />);
-  // const falseIcon = (<BsFillXCircleFill style={{ color: 'red' }} />);
 
   // These are Spoonacular and external scripts needed for full
   // functionality of the Spoonacular widgets
@@ -44,7 +38,6 @@ export default function ProductPage({ apiKey }) {
 
   // Setting initial loading states as true
   const placeholderImage = imgPlaceholder;
-  // const [open, setOpen] = useState(false);
   const [widgetName, setWidgetName] = useState('Nutrition Widget');
 
   // Intializing credentials and header parameters
@@ -67,28 +60,28 @@ export default function ProductPage({ apiKey }) {
   };
   const optionsStrWidget = JSON.stringify(optionsWidget);
 
-  // API Call setup for Ingredient's information
-  const urlIngredientInfo = `https://api.spoonacular.com/food/products/${params.productId}`;
+  // API Call setup for Product's information
+  const urlProductInfo = `https://api.spoonacular.com/food/products/${params.productId}`;
   const {
-    data: dataIngredientInfo,
-    success: successIngredientInfo,
-    loading: loadingIngredientInfo,
+    data: dataProductInfo,
+    success: successProductInfo,
+    loading: loadingProductInfo,
   } = useFetch(
-    urlIngredientInfo,
+    urlProductInfo,
     optionsStrJSON,
   );
 
-  // API Call setup for Ingredient's widget
-  const queryParametersIngredientWidget = new URLSearchParams({
+  // API Call setup for Product's widget
+  const queryParametersProductWidget = new URLSearchParams({
     defaultCss: true,
   });
-  const [urlIngredientWidget, setUrlIngredientWidget] = useState(`https://api.spoonacular.com/food/products/${params.productId}/nutritionWidget?${queryParametersIngredientWidget}`);
+  const [urlProductWidget, setUrlProductWidget] = useState(`https://api.spoonacular.com/food/products/${params.productId}/nutritionWidget?${queryParametersProductWidget}`);
   const {
-    data: dataIngredientWidget,
-    success: successIngredientWidget,
-    loading: loadingIngredientWidget,
+    data: dataProductWidget,
+    success: successProductWidget,
+    loading: loadingProductWidget,
   } = useFetch(
-    urlIngredientWidget,
+    urlProductWidget,
     optionsStrWidget,
   );
 
@@ -98,23 +91,23 @@ export default function ProductPage({ apiKey }) {
     let widgetPath = selectedWidget.replaceAll(' ', '');
     const firstLetter = widgetPath.substr(0, 1).toLowerCase();
     widgetPath = firstLetter + widgetPath.substr(1, widgetPath.length - 1);
-    const newWidgetPath = `https://api.spoonacular.com/food/products/${params.productId}/${widgetPath}?${queryParametersIngredientWidget}`;
-    setUrlIngredientWidget(newWidgetPath);
+    const newWidgetPath = `https://api.spoonacular.com/food/products/${params.productId}/${widgetPath}?${queryParametersProductWidget}`;
+    setUrlProductWidget(newWidgetPath);
   };
 
-  if (loadingIngredientInfo || loadingIngredientWidget) {
+  if (loadingProductInfo || loadingProductWidget) {
     return (
       <Loading />
     );
-  } if (!(successIngredientInfo && successIngredientWidget)) {
+  } if (!(successProductInfo && successProductWidget)) {
     console.log('The following errors were encountered:');
-    if (dataIngredientInfo.error) {
-      console.log(`URL -> ${urlIngredientInfo}`);
-      console.log(`Error -> ${dataIngredientInfo.error}\n`);
+    if (dataProductInfo.error) {
+      console.log(`URL -> ${urlProductInfo}`);
+      console.log(`Error -> ${dataProductInfo.error}\n`);
     }
-    if (dataIngredientWidget.error) {
-      console.log(`URL -> ${urlIngredientWidget}`);
-      console.log(`Error -> ${dataIngredientWidget.error}\n`);
+    if (dataProductWidget.error) {
+      console.log(`URL -> ${urlProductWidget}`);
+      console.log(`Error -> ${dataProductWidget.error}\n`);
     }
     return (
       <PageError />
@@ -127,15 +120,15 @@ export default function ProductPage({ apiKey }) {
         <Row style={{ paddingTop: '20px' }}>
           <Col>
             <Row>
-              <h2 className="header1-design">{dataIngredientInfo.title}</h2>
+              <h2 className="header1-design">{dataProductInfo.title}</h2>
               <div style={{ color: 'white' }}>
-                {parse(htmlParser(dataIngredientInfo.description))}
+                {parse(htmlParser(dataProductInfo.description))}
               </div>
               <p />
               <p style={{ color: 'white' }}>
                 <b>Brand:</b>
                 {
-                ` ${dataIngredientInfo.brand}`
+                ` ${dataProductInfo.brand}`
                 }
               </p>
             </Row>
@@ -143,7 +136,7 @@ export default function ProductPage({ apiKey }) {
           <Col className="col-auto">
             <Image
               className="img-fluid"
-              src={(dataIngredientInfo.image) ? dataIngredientInfo.image : placeholderImage}
+              src={(dataProductInfo.image) ? dataProductInfo.image : placeholderImage}
               alt=""
               style={{ borderRadius: '0.5em' }}
               onError={({ currentTarget }) => {
@@ -167,7 +160,7 @@ export default function ProductPage({ apiKey }) {
                         <b>Price</b>
                       </Col>
                       <Col style={{ textAlign: 'center' }}>
-                        {`$${dataIngredientInfo.price}`}
+                        {`$${dataProductInfo.price}`}
                       </Col>
                     </Row>
                     <hr />
@@ -176,7 +169,7 @@ export default function ProductPage({ apiKey }) {
                         <b>UPC</b>
                       </Col>
                       <Col style={{ textAlign: 'center' }}>
-                        {(dataIngredientInfo.upc) ? (dataIngredientInfo.upc) : '–'}
+                        {(dataProductInfo.upc) ? (dataProductInfo.upc) : '–'}
                       </Col>
                     </Row>
                     <hr />
@@ -185,7 +178,7 @@ export default function ProductPage({ apiKey }) {
                         <b>Servings</b>
                       </Col>
                       <Col style={{ textAlign: 'center' }}>
-                        {`${dataIngredientInfo.servings.number} ${(dataIngredientInfo.servings.unit) ? (dataIngredientInfo.servings.unit) : ''}`}
+                        {`${dataProductInfo.servings.number} ${(dataProductInfo.servings.unit) ? (dataProductInfo.servings.unit) : ''}`}
                       </Col>
                     </Row>
                     <hr />
@@ -194,7 +187,7 @@ export default function ProductPage({ apiKey }) {
                         <b>Badges</b>
                       </Col>
                       <Col className="col-6" style={{ textAlign: 'center' }}>
-                        <TagMaker data={dataIngredientInfo.badges} />
+                        <TagMaker data={dataProductInfo.badges} />
                       </Col>
                     </Row>
                     <hr />
@@ -203,7 +196,7 @@ export default function ProductPage({ apiKey }) {
                         <b>Type</b>
                       </Col>
                       <Col style={{ textAlign: 'center' }}>
-                        <TagMaker data={dataIngredientInfo.breadcrumbs} />
+                        <TagMaker data={dataProductInfo.breadcrumbs} />
                       </Col>
                     </Row>
                     <hr />
@@ -212,7 +205,7 @@ export default function ProductPage({ apiKey }) {
                         <b>Comments</b>
                       </Col>
                       <Col style={{ textAlign: 'center' }}>
-                        {(dataIngredientInfo.generatedText) ? (dataIngredientInfo.generatedText) : '–'}
+                        {(dataProductInfo.generatedText) ? (parse(dataProductInfo.generatedText)) : '–'}
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -222,7 +215,7 @@ export default function ProductPage({ apiKey }) {
           </Col>
         </Row>
         <Row>
-          <h3 className="header3-design">Ingredient Attributes</h3>
+          <h3 className="header3-design">Product Attributes</h3>
           <Dropdown onSelect={dropdownWidgetUpdate} focusFirstItemOnShow="true">
             <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
               {widgetName}
@@ -238,11 +231,11 @@ export default function ProductPage({ apiKey }) {
           <Col style={{ textAlign: 'center' }}>
             <iframe
               title="widget-frame"
-              src={`${urlIngredientWidget}&apiKey=${apiKey}`}
+              src={`${urlProductWidget}&apiKey=${apiKey}`}
               srcDoc={`${
                 preScripts[widgetName].join('')
               }<div style="padding-top: 100px;">${
-                dataIngredientWidget.replaceAll('hidden', 'visible').replace('width:100%', 'width:30%')}${
+                dataProductWidget.replaceAll('hidden', 'visible').replace('width:100%', 'width:30%')}${
                 postScripts[widgetName].join('')
               }<div style="padding-top: 200px;">`}
               style={{
@@ -250,7 +243,6 @@ export default function ProductPage({ apiKey }) {
               }}
             />
           </Col>
-
         </Row>
       </Col>
     </Container>

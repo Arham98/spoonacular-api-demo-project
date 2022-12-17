@@ -2,32 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Pagination from 'react-bootstrap/Pagination';
 
-function CustomPagination({ meta }) {
+function CustomPagination({ data, updatePageNumber }) {
+  const metaData = JSON.parse(data);
+  const perPage = JSON.parse(metaData.number);
   const setPage = (pageNo) => {
-    const linkUrl = new URL(window.location.href);
-    const queryParams = new URLSearchParams(linkUrl.search);
-    if (queryParams.has('page')) {
-      queryParams.set('page', pageNo);
-    } else {
-      queryParams.append('page', pageNo);
-    }
-    linkUrl.search = queryParams;
-    const newUrl = linkUrl.toString();
-    window.location.replace(newUrl);
+    const newPageNumber = (pageNo - 1) * perPage;
+    updatePageNumber(newPageNumber);
   };
 
-  const metaData = JSON.parse(meta);
-
   // Calculating total number of pages using the provided metadata
-  const totalPages = Math.ceil(metaData.total / metaData.per_page);
+  const maxPagesAPI = (900 / metaData.number) + 1;
+  let totalPages = Math.ceil(metaData.totalResults / metaData.number);
+  if (totalPages > maxPagesAPI) {
+    totalPages = maxPagesAPI;
+  }
+  const currentPage = Math.ceil(metaData.offset / metaData.number) + 1;
 
   // Calculating the first pagination page using the provided metadata
-  const firstPaginationPage = (3 * (Math.ceil(metaData.page / 3) - 1)) + 1;
-  const pageNumber = metaData.page;
+  const firstPaginationPage = (3 * (Math.ceil((currentPage) / 3) - 1)) + 1;
+  const pageNumber = currentPage;
   const isFirstPage = pageNumber === 1;
   const isLastPage = pageNumber === totalPages;
   const prevPage = isFirstPage ? 1 : pageNumber - 1;
   const nextPage = isLastPage ? 1 : pageNumber + 1;
+  // console.log(totalPages, currentPage, prevPage, nextPage, perPage);
 
   return (
     <Pagination className="justify-content-center pagination">
@@ -75,7 +73,8 @@ function CustomPagination({ meta }) {
 }
 
 CustomPagination.propTypes = {
-  meta: PropTypes.string.isRequired,
+  data: PropTypes.string.isRequired,
+  updatePageNumber: PropTypes.func.isRequired,
 };
 
 export default CustomPagination;

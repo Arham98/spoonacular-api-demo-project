@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 import titleCaseConverter from '../../utils/titleCaseConverter';
 
-export default function RecipeCard({ data }) {
+export default function TagMaker({ data }) {
   let listTags = <div />;
   if (data) {
     listTags = data.map((tagName) => (
@@ -17,10 +17,6 @@ export default function RecipeCard({ data }) {
         </Col>
       </React.Fragment>
     ));
-  } else {
-    return (
-      <div />
-    );
   }
 
   return (
@@ -30,6 +26,6 @@ export default function RecipeCard({ data }) {
   );
 }
 
-RecipeCard.propTypes = {
+TagMaker.propTypes = {
   data: PropTypes.instanceOf(Array).isRequired,
 };

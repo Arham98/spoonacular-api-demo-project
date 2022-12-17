@@ -175,7 +175,7 @@ export default function RecipePage({ apiKey }) {
               </div>
               <p />
               <p style={{ color: 'white' }}>
-                – By
+                {'– By '}
                 <a href={dataRecipeInfo.sourceUrl}>{dataRecipeInfo.creditsText}</a>
               </p>
             </Row>

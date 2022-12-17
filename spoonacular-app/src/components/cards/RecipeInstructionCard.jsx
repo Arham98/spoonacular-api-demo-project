@@ -8,7 +8,7 @@ import CardSlider from '../layouts/CardSlider';
 
 export default function RecipeInstructionCard({ data }) {
   let listCards = <div />;
-  if (data || data.length !== 0) {
+  if (data && data.length !== 0) {
     listCards = data[0].steps.map((object) => (
       <Carousel.Item key={object.number}>
         <Container style={{ width: '80%' }}>
@@ -34,7 +34,7 @@ export default function RecipeInstructionCard({ data }) {
   } else {
     return (
       <Container fluid>
-        <h3>Data Not Available</h3>
+        <h3 style={{ color: 'white' }}>Data Not Available</h3>
       </Container>
     );
   }

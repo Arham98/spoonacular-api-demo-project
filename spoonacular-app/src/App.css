@@ -58,7 +58,7 @@
 }
 
 .footer-design {
-  padding-top:15vh;
+  padding-top:10vh;
 }
 
 .footer-color {
@@ -192,16 +192,29 @@
   margin: auto;
 }
 
+
 .dropdown {
   color: white;
 }
 .dropdown-toggle {
-  background-color: #2D2926FF !important;
+  background-color: #01B636 !important;
+  font-weight: bold;
   border-color: #525252 !important;
   color: white;
 }
 .dropdown-menu {
   background-color: #2D2926FF !important;
+  border-color: #525252 !important;
+  color: white;
+}
+.dropdown-item:active {
+  background-color: #01B636 !important;
+  border-color: #525252 !important;
+  color: white;
+}
+
+.dropdown-item::selection {
+  background-color: #01B636 !important;
   border-color: #525252 !important;
   color: white;
 }
