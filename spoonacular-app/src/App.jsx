@@ -26,7 +26,7 @@ function App() {
       <div className="d-flex flex-column" style={{ minHeight: '90vh', background: '#313131', paddingTop: '10vh' }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to="/recipes/633790" />} />
+            <Route path="/" element={<Navigate to="/recipes" />} />
             <Route path="recipes/:recipeId" element={<RecipePage apiKey={apiKey} />} />
             <Route path="ingredients/:ingredientId" element={<IngredientPage apiKey={apiKey} />} />
             <Route path="products/:productId" element={<ProductPage apiKey={apiKey} />} />
