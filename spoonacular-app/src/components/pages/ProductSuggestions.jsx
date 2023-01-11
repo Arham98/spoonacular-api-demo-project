@@ -65,7 +65,7 @@ export default function ProductSuggestions({ apiKey, ingredientName }) {
   return (
     <Container>
       <Col className="align-items-center">
-        <CardSlider data={dataIngredientProduct[0].products} type="product-loading" emptyMessage="No Procucts Found" apiKey={apiKey} />
+        <CardSlider data={dataIngredientProduct[0].products} type="product-loading" emptyMessage="No Products Found" apiKey={apiKey} />
       </Col>
     </Container>
   );

@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
@@ -14,6 +14,7 @@ import Loading from '../utilities/Loading';
 import PageError from './PageError';
 import TagMaker from '../layouts/TagMaker';
 import useFetch from '../../hooks/useFetch';
+import CardSlider from '../layouts/CardSlider';
 import imgPlaceholder from '../../images/imgPlaceholder.png';
 import htmlParser from '../../utils/htmlParser';
 
@@ -71,6 +72,17 @@ export default function ProductPage({ apiKey }) {
     optionsStrJSON,
   );
 
+  // API Call setup for Product's information
+  const [urlSimilarProducts, setUrlSimilarProducts] = useState(null);
+  const {
+    data: dataSimilarProducts,
+    success: successSimilarProducts,
+    loading: loadingSimilarProducts,
+  } = useFetch(
+    urlSimilarProducts,
+    optionsStrJSON,
+  );
+
   // API Call setup for Product's widget
   const queryParametersProductWidget = new URLSearchParams({
     defaultCss: true,
@@ -95,11 +107,17 @@ export default function ProductPage({ apiKey }) {
     setUrlProductWidget(newWidgetPath);
   };
 
-  if (loadingProductInfo || loadingProductWidget) {
+  useEffect(() => {
+    if (dataProductInfo) {
+      setUrlSimilarProducts(`https://api.spoonacular.com/food/products/upc/${dataProductInfo.upc}/comparable`);
+    }
+  }, [dataProductInfo]);
+
+  if (loadingProductInfo || loadingProductWidget || loadingSimilarProducts) {
     return (
       <Loading />
     );
-  } if (!(successProductInfo && successProductWidget)) {
+  } if (!(successProductInfo && successProductWidget && successSimilarProducts)) {
     console.log('The following errors were encountered:');
     if (dataProductInfo.error) {
       console.log(`URL -> ${urlProductInfo}`);
@@ -244,6 +262,10 @@ export default function ProductPage({ apiKey }) {
             />
           </Col>
         </Row>
+        {(dataSimilarProducts) && <Row><h3 className="header3-design">Product Attributes</h3></Row>}
+        {(dataSimilarProducts)
+          && (<CardSlider data={dataSimilarProducts.comparableProducts.price.concat(dataSimilarProducts.comparableProducts.spoonacular_score, dataSimilarProducts.comparableProducts.likes, dataSimilarProducts.comparableProducts.sugar, dataSimilarProducts.comparableProducts.protein, dataSimilarProducts.comparableProducts.calories).filter((similarProduct) => similarProduct)} type="product-loading" emptyMessage="No Similar Products Found" apiKey={apiKey} />)}
+        <Row><br /></Row>
       </Col>
     </Container>
   );

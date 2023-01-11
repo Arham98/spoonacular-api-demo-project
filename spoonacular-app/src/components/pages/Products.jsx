@@ -104,12 +104,14 @@ export default function Products({ apiKey }) {
     } else {
       setMaxFat('');
     }
+    setOffset(0);
   };
 
   // Dropdown function to update the filter the number of search
   // results on each page
   const updateResultsNumber = (newNumber) => {
     setNumber(newNumber);
+    setOffset(0);
   };
 
   // Dropdown function to update the page number by using offset

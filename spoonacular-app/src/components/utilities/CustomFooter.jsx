@@ -3,14 +3,14 @@ import React from 'react';
 function CustomFooter() {
   return (
     <footer className="page-footer footer-color">
-      <br style={{ paddingLeft: '30px' }} />
-      <h7 style={{
-        fontSize: '20px', paddingLeft: '30px', paddingTop: '30px', paddingBottom: '60px',
+      <br />
+      <h6 style={{
+        fontSize: '20px', paddingLeft: '30px', paddingTop: '10px', paddingBottom: '40px',
       }}
       >
         {' '}
         By Arham Saeed
-      </h7>
+      </h6>
     </footer>
   );
 }

@@ -114,27 +114,32 @@ export default function Ingredients({ apiKey }) {
     } else {
       setMaxFat('');
     }
+    setOffset(0);
   };
 
   // Dropdown function to update the intolerance filter
   const updateIntolerance = (intoleranceName) => {
     setIntolerance(intoleranceName);
+    setOffset(0);
   };
 
   // Dropdown function to update the sorting option filter
   const updateSortingOption = (sortName) => {
     setSortingOption(sortName);
+    setOffset(0);
   };
 
   // Dropdown function to update the sorting option filter
   const updateSortDirection = (sortDir) => {
     setSortDirection(sortDir);
+    setOffset(0);
   };
 
   // Dropdown function to update the filter the number of search
   // results on each page
   const updateResultsNumber = (newNumber) => {
     setNumber(newNumber);
+    setOffset(0);
   };
 
   // Dropdown function to update the page number by using offset
@@ -169,7 +174,6 @@ export default function Ingredients({ apiKey }) {
                 <Form.Control
                   type="search"
                   placeholder="Search Ingredients"
-                  className="me-2"
                   aria-label="Search"
                   defaultValue={(query === '') ? null : query}
                 />
