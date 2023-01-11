@@ -16,6 +16,9 @@ export default function NutrientForm({ data }) {
       </Row>
       <Row style={{ paddingBottom: '20px' }}>
         <Col>
+          <h5 className="header3-design">
+            Minimum Calories
+          </h5>
           <Form.Control
             placeholder="Minimum Calories"
             type="number"
@@ -24,6 +27,9 @@ export default function NutrientForm({ data }) {
           />
         </Col>
         <Col>
+          <h5 className="header3-design">
+            Maximum Calories
+          </h5>
           <Form.Control
             placeholder="Maximum Calories"
             type="number"
@@ -32,6 +38,9 @@ export default function NutrientForm({ data }) {
           />
         </Col>
         <Col>
+          <h5 className="header3-design">
+            Minimum Carbohydrates
+          </h5>
           <Form.Control
             placeholder="Minimum Carbohydrates"
             type="number"
@@ -40,6 +49,9 @@ export default function NutrientForm({ data }) {
           />
         </Col>
         <Col>
+          <h5 className="header3-design">
+            Maximum Carbohydrates
+          </h5>
           <Form.Control
             placeholder="Maximum Carbohydrates"
             type="number"
@@ -50,6 +62,9 @@ export default function NutrientForm({ data }) {
       </Row>
       <Row style={{ paddingBottom: '20px' }}>
         <Col>
+          <h5 className="header3-design">
+            Minimum Proteins
+          </h5>
           <Form.Control
             placeholder="Minimum Proteins"
             type="number"
@@ -58,6 +73,9 @@ export default function NutrientForm({ data }) {
           />
         </Col>
         <Col>
+          <h5 className="header3-design">
+            Maximum Proteins
+          </h5>
           <Form.Control
             placeholder="Maximum Proteins"
             type="number"
@@ -66,6 +84,9 @@ export default function NutrientForm({ data }) {
           />
         </Col>
         <Col>
+          <h5 className="header3-design">
+            Minimum Fats
+          </h5>
           <Form.Control
             placeholder="Minimum Fats"
             type="number"
@@ -74,6 +95,9 @@ export default function NutrientForm({ data }) {
           />
         </Col>
         <Col>
+          <h5 className="header3-design">
+            Maximum Fats
+          </h5>
           <Form.Control
             placeholder="Maximum Fats"
             type="number"

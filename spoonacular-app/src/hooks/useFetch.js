@@ -8,6 +8,7 @@ export default function useFetch(url, optionsStr) {
   useEffect(() => {
     // Changing loading state to true whenever there's an effect
     setLoading(true);
+    setSuccess(false);
     const controller = new AbortController();
 
     // asynchronous function to make API call
@@ -53,6 +54,7 @@ export default function useFetch(url, optionsStr) {
       fetchData();
     } else {
       setLoading(false);
+      setSuccess(true);
     }
 
     return () => {

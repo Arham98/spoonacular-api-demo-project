@@ -19,7 +19,7 @@ import useFetch from '../../hooks/useFetch';
 
 export default function Products({ apiKey }) {
   // Initializing initial states of all search parameters
-  const [query, setQuery] = useState('Eggs');
+  const [query, setQuery] = useState('Chocolate');
   const [minCalories, setMinCalories] = useState('');
   const [maxCalories, setMaxCalories] = useState('');
   const [minCarbs, setMinCarbs] = useState('');
@@ -28,7 +28,7 @@ export default function Products({ apiKey }) {
   const [maxProtein, setMaxProtein] = useState('');
   const [minFat, setMinFat] = useState('');
   const [maxFat, setMaxFat] = useState('');
-  const [number, setNumber] = useState(10);
+  const [number, setNumber] = useState(12);
   const [offset, setOffset] = useState(0);
 
   // Intializing credentials and header parameters
@@ -60,31 +60,49 @@ export default function Products({ apiKey }) {
 
   // Function to update search query
   const updateSearchQuery = (event) => {
+    const min = 0;
+    const max = 99999;
     event.preventDefault();
     setQuery(event.target[0].value);
     if (event.target[2].value) {
-      setMinCalories(`&minCalories=${event.target[2].value}`);
+      setMinCalories(`&minCalories=${Math.max(min, Math.min(max, Number(event.target[2].value)))}`);
+    } else {
+      setMinCalories('');
     }
     if (event.target[3].value) {
-      setMaxCalories(`&maxCalories=${event.target[3].value}`);
+      setMaxCalories(`&maxCalories=${Math.max(min, Math.min(max, Number(event.target[3].value)))}`);
+    } else {
+      setMaxCalories('');
     }
     if (event.target[4].value) {
-      setMinCarbs(`&minCarbs=${event.target[4].value}`);
+      setMinCarbs(`&minCarbs=${Math.max(min, Math.min(max, Number(event.target[4].value)))}`);
+    } else {
+      setMinCarbs('');
     }
     if (event.target[5].value) {
-      setMaxCarbs(`&maxCarbs=${event.target[5].value}`);
+      setMaxCarbs(`&maxCarbs=${Math.max(min, Math.min(max, Number(event.target[5].value)))}`);
+    } else {
+      setMaxCarbs('');
     }
     if (event.target[6].value) {
-      setMinProtein(`&minProtein=${event.target[6].value}`);
+      setMinProtein(`&minProtein=${Math.max(min, Math.min(max, Number(event.target[6].value)))}`);
+    } else {
+      setMinProtein('');
     }
     if (event.target[7].value) {
-      setMaxProtein(`&maxProtein=${event.target[7].value}`);
+      setMaxProtein(`&maxProtein=${Math.max(min, Math.min(max, Number(event.target[7].value)))}`);
+    } else {
+      setMaxProtein('');
     }
     if (event.target[8].value) {
-      setMinFat(`&minFat=${event.target[8].value}`);
+      setMinFat(`&minFat=${Math.max(min, Math.min(max, Number(event.target[8].value)))}`);
+    } else {
+      setMinFat('');
     }
     if (event.target[9].value) {
-      setMaxFat(`&maxFat=${event.target[9].value}`);
+      setMaxFat(`&maxFat=${Math.max(min, Math.min(max, Number(event.target[9].value)))}`);
+    } else {
+      setMaxFat('');
     }
   };
 
@@ -164,7 +182,7 @@ export default function Products({ apiKey }) {
                   <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
                     {number}
                   </Dropdown.Toggle>
-                  <DropdownMenuMaker data={[10, 20, 50, 100]} val={`${number}`} />
+                  <DropdownMenuMaker data={[12, 20, 60, 100]} val={`${number}`} defaultName="noLabel" />
                 </Dropdown>
               </Col>
             </Row>
