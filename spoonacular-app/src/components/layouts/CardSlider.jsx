@@ -16,7 +16,7 @@ function CardSlider({
     if (data.length === 0) {
       return (
         <Container fluid>
-          <p>{emptyMessage}</p>
+          <p style={{ color: 'white' }}>{emptyMessage}</p>
         </Container>
       );
     }

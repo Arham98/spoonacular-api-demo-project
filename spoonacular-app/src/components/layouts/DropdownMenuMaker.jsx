@@ -13,7 +13,7 @@ export default function DropdownMenuMaker({ data, val, defaultName }) {
   }
   return (
     <Dropdown.Menu variant="dark">
-      {(defaultName !== 'noLabel') && <Dropdown.Item eventKey="" key={defaultName} active={val === `${defaultName}`} style={(val === `${defaultName}`) ? { backgroundColor: '#01B636' } : {}}>{defaultName}</Dropdown.Item>}
+      {(defaultName !== 'noLabel') && <Dropdown.Item eventKey="" key={defaultName} disabled={val === ''} style={(val === `${defaultName}`) ? { backgroundColor: '#01B636' } : {}}>{defaultName}</Dropdown.Item>}
       {(defaultName !== 'noLabel') && <Dropdown.Divider style={{ backgroundColor: 'grey' }} />}
       { listOptions }
     </Dropdown.Menu>

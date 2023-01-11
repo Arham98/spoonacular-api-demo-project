@@ -109,7 +109,9 @@ export default function ProductPage({ apiKey }) {
 
   useEffect(() => {
     if (dataProductInfo) {
-      setUrlSimilarProducts(`https://api.spoonacular.com/food/products/upc/${dataProductInfo.upc}/comparable`);
+      if (dataProductInfo.upc) {
+        setUrlSimilarProducts(`https://api.spoonacular.com/food/products/upc/${dataProductInfo.upc}/comparable`);
+      }
     }
   }, [dataProductInfo]);
 
@@ -143,12 +145,12 @@ export default function ProductPage({ apiKey }) {
                 {parse(htmlParser(dataProductInfo.description))}
               </div>
               <p />
-              <p style={{ color: 'white' }}>
+              <h5 style={{ color: 'white' }}>
                 <b>Brand:</b>
                 {
                 ` ${dataProductInfo.brand}`
                 }
-              </p>
+              </h5>
             </Row>
           </Col>
           <Col className="col-auto">
