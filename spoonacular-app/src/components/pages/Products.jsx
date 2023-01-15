@@ -19,7 +19,7 @@ import useFetch from '../../hooks/useFetch';
 
 export default function Products({ apiKey }) {
   // Initializing initial states of all search parameters
-  const [query, setQuery] = useState('Chocolate');
+  const [query, setQuery] = useState('Chicken');
   const [minCalories, setMinCalories] = useState('');
   const [maxCalories, setMaxCalories] = useState('');
   const [minCarbs, setMinCarbs] = useState('');

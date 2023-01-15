@@ -22,7 +22,7 @@ export default function Recipes({ apiKey }) {
   const diets = ['Omnivore', 'Mediterranean Diet', 'Clean Eating', 'Weight Watchers', 'Fruitarian', 'Gluten Free', 'Ketogenic', 'Vegetarian', 'Lacto-Vegetarian', 'Ovo-Vegetarian', 'Vegan', 'Pescetarian', 'Paleo', 'Primal', 'Low FODMAP', 'Whole30'];
   const intolerances = ['Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood', 'Sesame', 'Shellfish', 'Soy', 'Sulfite', 'Tree Nut', 'Wheat'];
   const types = ['main course', 'side dish', 'dessert', 'appetizer', 'salad', 'bread', 'breakfast', 'soup', 'beverage', 'sauce', 'marinade', 'fingerfood', 'snack', 'drink'];
-  const sortingOptions = ['default', 'meta-score', 'popularity', 'healthiness', 'price', 'time', 'random', 'max-used-ingredients', 'min-missing-ingredients', 'alcohol', 'caffeine', 'copper', 'energy', 'calories', 'calcium', 'carbohydrates', 'carbs', 'choline', 'cholesterol', 'total-fat', 'fluoride', 'trans-fat', 'saturated-fat', 'mono-unsaturated-fat', 'poly-unsaturated-fat', 'fiber', 'folate', 'folic-acid', 'iodine', 'iron', 'magnesium', 'manganese', 'vitamin-b3', 'niacin', 'vitamin-b5', 'pantothenic-acid', 'phosphorus', 'potassium', 'protein', 'vitamin-b2', 'riboflavin', 'selenium', 'sodium', 'vitamin-b1', 'thiamin', 'vitamin-a', 'vitamin-b6', 'vitamin-b12', 'vitamin-c', 'vitamin-d', 'vitamin-e', 'vitamin-k', 'sugar', 'zinc'];
+  const sortingOptions = ['meta-score', 'popularity', 'healthiness', 'price', 'time', 'random', 'max-used-ingredients', 'min-missing-ingredients', 'alcohol', 'caffeine', 'copper', 'energy', 'calories', 'calcium', 'carbohydrates', 'carbs', 'choline', 'cholesterol', 'total-fat', 'fluoride', 'trans-fat', 'saturated-fat', 'mono-unsaturated-fat', 'poly-unsaturated-fat', 'fiber', 'folate', 'folic-acid', 'iodine', 'iron', 'magnesium', 'manganese', 'vitamin-b3', 'niacin', 'vitamin-b5', 'pantothenic-acid', 'phosphorus', 'potassium', 'protein', 'vitamin-b2', 'riboflavin', 'selenium', 'sodium', 'vitamin-b1', 'thiamin', 'vitamin-a', 'vitamin-b6', 'vitamin-b12', 'vitamin-c', 'vitamin-d', 'vitamin-e', 'vitamin-k', 'sugar', 'zinc'];
   const sortingDirections = ['asc', 'desc'];
 
   // Initializing initial states of all search parameters
@@ -216,7 +216,7 @@ export default function Recipes({ apiKey }) {
               <Row>
                 <Col className="col-auto">
                   <Dropdown onSelect={updateCuisine}>
-                    <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    <Dropdown.Toggle variant="secondary">
                       {(cuisine !== '') ? cuisine : 'Select Cuisine'}
                     </Dropdown.Toggle>
                     <DropdownMenuMaker data={cuisines} val={cuisine} defaultName="Select Cuisine" />
@@ -224,7 +224,7 @@ export default function Recipes({ apiKey }) {
                 </Col>
                 <Col className="col-auto">
                   <Dropdown onSelect={updateDiet}>
-                    <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    <Dropdown.Toggle variant="secondary">
                       {(diet !== '') ? diet : 'Select Diet Plan'}
                     </Dropdown.Toggle>
                     <DropdownMenuMaker data={diets} val={diet} defaultName="Select Diet Plan" />
@@ -232,7 +232,7 @@ export default function Recipes({ apiKey }) {
                 </Col>
                 <Col className="col-auto">
                   <Dropdown onSelect={updateIntolerance}>
-                    <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    <Dropdown.Toggle variant="secondary">
                       {(intolerance !== '') ? intolerance : 'Select Intolerance to Avoid'}
                     </Dropdown.Toggle>
                     <DropdownMenuMaker data={intolerances} val={intolerance} defaultName="Select Intolerance to Avoid" />
@@ -240,7 +240,7 @@ export default function Recipes({ apiKey }) {
                 </Col>
                 <Col className="col-auto">
                   <Dropdown onSelect={updateType}>
-                    <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    <Dropdown.Toggle variant="secondary">
                       {(type !== '') ? type : 'Select Meal Type'}
                     </Dropdown.Toggle>
                     <DropdownMenuMaker data={types} val={type} defaultName="Select Meal Type" />
@@ -248,7 +248,7 @@ export default function Recipes({ apiKey }) {
                 </Col>
                 <Col className="col-auto">
                   <Dropdown onSelect={updateSortingOption}>
-                    <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    <Dropdown.Toggle variant="secondary">
                       {(sort !== '') ? sort : 'Select Sorting Option'}
                     </Dropdown.Toggle>
                     <DropdownMenuMaker data={sortingOptions} val={sort} defaultName="Select Sorting Option" />
@@ -256,7 +256,7 @@ export default function Recipes({ apiKey }) {
                 </Col>
                 <Col className="col-auto">
                   <Dropdown onSelect={updateSortDirection}>
-                    <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                    <Dropdown.Toggle variant="secondary">
                       {sortDirection}
                     </Dropdown.Toggle>
                     <DropdownMenuMaker data={sortingDirections} val={sortDirection} defaultName="noLabel" />
@@ -286,7 +286,7 @@ export default function Recipes({ apiKey }) {
               </Col>
               <Col className="col-auto">
                 <Dropdown onSelect={updateResultsNumber}>
-                  <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                  <Dropdown.Toggle variant="secondary">
                     {number}
                   </Dropdown.Toggle>
                   <DropdownMenuMaker data={[12, 20, 60, 100]} val={`${number}`} defaultName="noLabel" />

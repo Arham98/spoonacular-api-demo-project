@@ -19,7 +19,6 @@ import useFetch from '../../hooks/useFetch';
 
 export default function Ingredients({ apiKey }) {
   const intolerances = ['Dairy', 'Egg', 'Gluten', 'Grain', 'Peanut', 'Seafood', 'Sesame', 'Shellfish', 'Soy', 'Sulfite', 'Tree Nut', 'Wheat'];
-  const sortingOptions = ['', 'alcohol', 'caffeine', 'copper', 'energy', 'calories', 'calcium', 'carbohydrates', 'carbs', 'choline', 'cholesterol', 'total-fat', 'fluoride', 'trans-fat', 'saturated-fat', 'mono-unsaturated-fat', 'poly-unsaturated-fat', 'fiber', 'folate', 'folic-acid', 'iodine', 'iron', 'magnesium', 'manganese', 'vitamin-b3', 'niacin', 'vitamin-b5', 'pantothenic-acid', 'phosphorus', 'potassium', 'protein', 'vitamin-b2', 'riboflavin', 'selenium', 'sodium', 'vitamin-b1', 'thiamin', 'vitamin-a', 'vitamin-b6', 'vitamin-b12', 'vitamin-c', 'vitamin-d', 'vitamin-e', 'vitamin-k', 'sugar', 'zinc'];
   const sortingDirections = ['asc', 'desc'];
 
   // Initializing initial states of all search parameters
@@ -33,7 +32,6 @@ export default function Ingredients({ apiKey }) {
   const [minFat, setMinFat] = useState('');
   const [maxFat, setMaxFat] = useState('');
   const [intolerance, setIntolerance] = useState('');
-  const [sort, setSortingOption] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
   const [number, setNumber] = useState(12);
   const [offset, setOffset] = useState(0);
@@ -53,7 +51,6 @@ export default function Ingredients({ apiKey }) {
   const queryParametersSearchIngredients = new URLSearchParams({
     query,
     intolerance,
-    sort,
     sortDirection,
     number,
     offset,
@@ -124,12 +121,6 @@ export default function Ingredients({ apiKey }) {
   };
 
   // Dropdown function to update the sorting option filter
-  const updateSortingOption = (sortName) => {
-    setSortingOption(sortName);
-    setOffset(0);
-  };
-
-  // Dropdown function to update the sorting option filter
   const updateSortDirection = (sortDir) => {
     setSortDirection(sortDir);
     setOffset(0);
@@ -190,23 +181,15 @@ export default function Ingredients({ apiKey }) {
             <Row style={{ paddingTop: '20px' }}>
               <Col className="col-auto">
                 <Dropdown onSelect={updateIntolerance}>
-                  <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                  <Dropdown.Toggle variant="secondary">
                     {(intolerance !== '') ? intolerance : 'Select Intolerance to Avoid'}
                   </Dropdown.Toggle>
                   <DropdownMenuMaker data={intolerances} val={intolerance} defaultName="Select Intolerance to Avoid" />
                 </Dropdown>
               </Col>
               <Col className="col-auto">
-                <Dropdown onSelect={updateSortingOption}>
-                  <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
-                    {(sort !== '') ? sort : 'Default Sorting Option'}
-                  </Dropdown.Toggle>
-                  <DropdownMenuMaker data={sortingOptions} val={sort} defaultName="Select Sorting Option" />
-                </Dropdown>
-              </Col>
-              <Col className="col-auto">
                 <Dropdown onSelect={updateSortDirection}>
-                  <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                  <Dropdown.Toggle variant="secondary">
                     {sortDirection}
                   </Dropdown.Toggle>
                   <DropdownMenuMaker data={sortingDirections} val={sortDirection} defaultName="noLabel" />
@@ -235,7 +218,7 @@ export default function Ingredients({ apiKey }) {
               </Col>
               <Col className="col-auto">
                 <Dropdown onSelect={updateResultsNumber}>
-                  <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                  <Dropdown.Toggle variant="secondary">
                     {number}
                   </Dropdown.Toggle>
                   <DropdownMenuMaker data={[12, 20, 60, 100]} val={`${number}`} defaultName="noLabel" />

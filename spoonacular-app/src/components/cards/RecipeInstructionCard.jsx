@@ -40,8 +40,7 @@ export default function RecipeInstructionCard({ data, apiKey }) {
   }
   const [index, setIndex] = useState(0);
 
-  const handleSelect = (selectedIndex, event) => {
-    console.log(event);
+  const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 
