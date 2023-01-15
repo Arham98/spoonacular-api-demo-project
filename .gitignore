@@ -5,4 +5,5 @@
 *dockerJob*
 *eslint*
 *.tar*
+*.sh*
 *keys.json*
