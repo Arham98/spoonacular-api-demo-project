@@ -20,7 +20,7 @@ export default function NutrientForm({ data }) {
             Minimum Calories
           </h5>
           <Form.Control
-            placeholder="Minimum Calories"
+            placeholder="Enter Minimum Calories"
             type="number"
             step="0.01"
             defaultValue={dataObj.minCalories}
@@ -31,7 +31,7 @@ export default function NutrientForm({ data }) {
             Maximum Calories
           </h5>
           <Form.Control
-            placeholder="Maximum Calories"
+            placeholder="Enter Maximum Calories"
             type="number"
             step="0.01"
             defaultValue={dataObj.maxCalories}
@@ -42,7 +42,7 @@ export default function NutrientForm({ data }) {
             Minimum Carbohydrates
           </h5>
           <Form.Control
-            placeholder="Minimum Carbohydrates"
+            placeholder="Enter Minimum Carbohydrates"
             type="number"
             step="0.01"
             defaultValue={dataObj.minCarbs}
@@ -53,7 +53,7 @@ export default function NutrientForm({ data }) {
             Maximum Carbohydrates
           </h5>
           <Form.Control
-            placeholder="Maximum Carbohydrates"
+            placeholder="Enter Maximum Carbohydrates"
             type="number"
             step="0.01"
             defaultValue={dataObj.minCarbs}
@@ -66,7 +66,7 @@ export default function NutrientForm({ data }) {
             Minimum Proteins
           </h5>
           <Form.Control
-            placeholder="Minimum Proteins"
+            placeholder="Enter Minimum Proteins"
             type="number"
             step="0.01"
             defaultValue={dataObj.minProtein}
@@ -77,7 +77,7 @@ export default function NutrientForm({ data }) {
             Maximum Proteins
           </h5>
           <Form.Control
-            placeholder="Maximum Proteins"
+            placeholder="Enter Maximum Proteins"
             type="number"
             step="0.01"
             defaultValue={dataObj.maxProtein}
@@ -88,7 +88,7 @@ export default function NutrientForm({ data }) {
             Minimum Fats
           </h5>
           <Form.Control
-            placeholder="Minimum Fats"
+            placeholder="Enter Minimum Fats"
             type="number"
             step="0.01"
             defaultValue={dataObj.minFat}
@@ -99,7 +99,7 @@ export default function NutrientForm({ data }) {
             Maximum Fats
           </h5>
           <Form.Control
-            placeholder="Maximum Fats"
+            placeholder="Enter Maximum Fats"
             type="number"
             step="0.01"
             defaultValue={dataObj.maxFat}
